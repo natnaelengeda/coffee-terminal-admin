@@ -2,18 +2,17 @@ import { useEffect } from 'react';
 import {
   TextInput,
   PasswordInput,
-  Checkbox,
   Button
 } from '@mantine/core';
 import { jwtDecode } from 'jwt-decode';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import axios from '../../http/axios';
+import { Bounce, toast } from 'react-toastify';
 
 // State 
 import { useDispatch } from 'react-redux';
 import { login } from '../../state/admin';
-import { Bounce, toast } from 'react-toastify';
 
 export interface UserAccessToken {
   id: string;
@@ -47,7 +46,19 @@ export default function Login() {
         const status = response.status;
         if (status == 200) {
           const decoded = jwtDecode<UserAccessToken>(response.data.accessToken);
-          console.log(decoded)
+          dispatch(login(decoded));
+          toast.success('Login Success', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+          navigate('/');
         }
       })
       .catch((error) => {

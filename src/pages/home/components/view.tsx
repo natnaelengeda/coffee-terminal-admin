@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from '../../../http/axios';
 
+// Image
+import logo 
 export default function View() {
   const [data, setData] = useState([]);
   const env = import.meta.env;
@@ -56,6 +58,16 @@ export default function View() {
             </div>
           </div>
         ))
+      }
+
+      {
+        data && data.length == 0 && (
+          <div className='w-full h-full flex flex-col items-start justify-start'>
+            <div className='w-full h-full flex flex-col gap-10'>
+              <img src={logo} alt="" />
+            </div>
+          </div>
+        )
       }
     </div>
   )

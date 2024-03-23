@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Tabs } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 
 // State 
 import { useSelector } from 'react-redux';
@@ -10,6 +11,7 @@ import Add from "./components/add";
 export default function Home() {
   const admin = useSelector((state: any) => state.admin);
   const navigate = useNavigate();
+  const isSmallScreen = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     if (admin.isLoggedIn == false) {
@@ -19,11 +21,16 @@ export default function Home() {
 
   return (
     <div className="w-full">
-      <Tabs defaultValue="view" orientation="vertical">
-        <Tabs.List
-          style={{
-            width: 200,
-          }}>
+      <Tabs
+        defaultValue="view"
+        orientation={isSmallScreen ? 'horizontal' : 'vertical'}
+        variant={isSmallScreen ? 'pills' : 'default'}
+      >
+        <Tabs.List className="md:w-40"
+        // style={{
+        //   width: 200,
+        // }}
+        >
           <Tabs.Tab
             style={{
               height: 50
@@ -36,12 +43,12 @@ export default function Home() {
             }}
             value="add">
             Add </Tabs.Tab>
-          <Tabs.Tab
+          {/* <Tabs.Tab
             style={{
               height: 50
             }}
             value="settings">
-            Settings</Tabs.Tab>
+            Settings</Tabs.Tab> */}
         </Tabs.List>
         <Tabs.Panel value="view">
           <View />

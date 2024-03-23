@@ -18,10 +18,15 @@ export default function Add() {
   }, []);
 
   function transformData(data: any) {
-    return data.map((item: any) => ({
+    const transformedData = data.map((item: any) => ({
       label: item.title,
       value: item._id,
     }));
+
+    // Add an empty label and value at the start
+    transformedData.unshift({ label: '', value: '' });
+
+    return transformedData;
   }
 
   const fetchCategory = async () => {
@@ -87,8 +92,8 @@ export default function Add() {
 
     validate: {
       category: (value) => {
-        if (value.length < 3) {
-          return 'Category Can not be Empty';
+        if (!value) {
+          return 'Category is required';
         }
         return null;
       },
@@ -216,7 +221,7 @@ export default function Add() {
     <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 p-5 gap-10 bg-gray-100 border'>
 
       {/* Add Category */}
-      <div className='w-full h-full px-20'>
+      <div className='w-full h-full xl:px-20'>
         <div className='w-full h-full rounded-xl bg-white border  border-gray-100 shadow-sm flex flex-col items-start justify-start py-5 boor'>
 
           {/* Title */}
@@ -244,7 +249,7 @@ export default function Add() {
       </div>
 
       {/* Add Item */}
-      <div className='w-full h-full px-20'>
+      <div className='w-full h-full xl:px-20'>
         <div className='w-full h-full flex flex-col rounded-xl py-5 bg-white  border border-gray-100 shadow-sm '>
 
           {/* Title */}

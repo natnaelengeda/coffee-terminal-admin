@@ -1,4 +1,4 @@
-import { Menu, Button, Avatar } from '@mantine/core';
+import { Menu, Avatar } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 // Images
 import logo from '../assets/images/logo.png';
@@ -32,12 +32,11 @@ export default function Header() {
 
           <Menu.Dropdown>
             <Menu.Label>Application</Menu.Label>
-            <Menu.Item >
-              <Button
-                onClick={logoutFunction}
-                style={{
-                  width: '100%'
-                }}>Logout</Button>
+            <Menu.Item
+              onClick={logoutFunction}
+              className='text-red-500'
+            >
+              <p className='text-red-500'>Logout</p>
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>

@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+
+// Mantine
 import {
   TextInput,
   Button,
@@ -6,8 +8,12 @@ import {
   NativeSelect,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import axios from '../../../http/axios';
-import axiosFile from '../../../http/axiosFile';
+
+// Axios
+import axios from '@/http/axios';
+import axiosFile from '@/http/axiosFile';
+
+// Toast
 import { Bounce, toast } from 'react-toastify';
 
 export default function Add() {
@@ -30,7 +36,7 @@ export default function Add() {
   }
 
   const fetchCategory = async () => {
-    await axios.get('/food/getAll')
+    await axios.get('/food')
       .then((response) => {
         const status = response.status;
         if (status == 200) {
@@ -169,7 +175,7 @@ export default function Add() {
   }
 
   const addItem = async (values: any) => {
-    await axiosFile.post('/food/addFood', values)
+    await axiosFile.post('/food', values)
       .then((response) => {
         const status = response.status;
         if (status == 200) {
@@ -218,10 +224,10 @@ export default function Add() {
   }
 
   return (
-    <div className='w-full h-full grid grid-cols-1 md:grid-cols-2 p-5 gap-10 bg-gray-100 border'>
+    <div className='w-full h-full min-h-[90vh] grid grid-cols-1 md:grid-cols-2 p-5 gap-1 md:gap-10  border'>
 
       {/* Add Category */}
-      <div className='w-full h-full xl:px-20'>
+      <div className='w-full h-60 xl:px-20'>
         <div className='w-full h-full rounded-xl bg-white border  border-gray-100 shadow-sm flex flex-col items-start justify-start py-5 boor'>
 
           {/* Title */}
@@ -249,7 +255,7 @@ export default function Add() {
       </div>
 
       {/* Add Item */}
-      <div className='w-full h-full xl:px-20'>
+      <div className='w-full h-[28rem] xl:px-20'>
         <div className='w-full h-full flex flex-col rounded-xl py-5 bg-white  border border-gray-100 shadow-sm '>
 
           {/* Title */}

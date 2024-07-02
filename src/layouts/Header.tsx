@@ -17,7 +17,7 @@ export default function Header() {
   }
 
   return (
-    <header className='w-full h-20 border border-gray shadow-sm flex flex-row items-center justify-between px-10'>
+    <header className='w-full h-20 fixed border border-gray shadow-sm flex flex-row items-center justify-between px-10 bg-white z-50'>
       <div className='w-full h-auto'>
         <img
           className='w-14 h-auto object-contain'

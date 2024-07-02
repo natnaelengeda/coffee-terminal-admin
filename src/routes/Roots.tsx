@@ -22,8 +22,11 @@ export default function Root() {
 
   return (
     <>
-      {admin.isLoggedIn && <Header />}
-      <main className=''>
+      {
+        admin.isLoggedIn &&
+        <Header />
+      }
+      <main className='w-full h-full min-h-screen bg-gray-100'>
         <Outlet />
       </main>
     </>

@@ -1,26 +1,12 @@
-import { useState, useEffect } from 'react';
-import axios from '../../../http/axios';
 
 // Image
-import logo from '../../../assets/images/logo.png';
-import ItemsCard from '../widgets/ItemsCard';
+import logo from '@/assets/images/logo.png';
+import ItemsCard from './components/ItemsCard';
 
-export default function View() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
-  const fetchItems = async () => {
-    await axios.get('/food/getAll')
-      .then((response) => {
-        setData(response.data);
-      })
-  }
+export default function View({ data, fetchItems }: { data: any, fetchItems: any }) {
 
   return (
-    <div className='w- mx-auto container h-full flex flex-col gap-5 md:px-3 py-5 px-5'>
+    <div className='mx-auto container h-full flex flex-col gap-5 md:px-3 py-5 px-5'>
       {
         data && data.map((items: any) => (
           <div

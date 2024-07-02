@@ -1,18 +1,30 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
+// Mantine
 import {
   TextInput,
   PasswordInput,
-  Button
 } from '@mantine/core';
-import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom';
+
 import { useForm } from '@mantine/form';
+
+// JWT
+import { jwtDecode } from 'jwt-decode';
+
+import { useNavigate } from 'react-router-dom';
+
+// Axios
 import axios from '../../http/axios';
+
+// Toast
 import { Bounce, toast } from 'react-toastify';
 
 // State 
 import { useDispatch } from 'react-redux';
 import { login } from '../../state/admin';
+
+// Loading
+import ReactLoading from 'react-loading';
 
 export interface UserAccessToken {
   id: string;
@@ -23,6 +35,8 @@ export interface UserAccessToken {
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,6 +55,7 @@ export default function Login() {
   });
 
   const loginFunction = async (data: any) => {
+    setLoading(true);
     await axios.post('/admin/login', data)
       .then((response) => {
         const status = response.status;
@@ -63,7 +78,7 @@ export default function Login() {
       })
       .catch((error) => {
         const status = error.response.status;
-
+        setLoading(false);
         if (status == 400) {
           toast.error('Admin Not Found', {
             position: "top-right",
@@ -135,12 +150,22 @@ export default function Login() {
             className='w-full'
             {...form.getInputProps('password')}
           />
-          <Button
-            type='submit'
-            color='black'
-            variant="filled">
-            Login
-          </Button>
+          <button
+            className={`w-full h-12 ${loading ? "bg-gray-400" : "bg-black"} text-white flex items-center justify-center gap-2 hover:opacity-9 rounded`}
+            type='submit'>
+            {
+              loading ? (
+                <>
+                  <ReactLoading
+                    type={"spokes"}
+                    color={"#fff"}
+                    height={20}
+                    width={20} />
+                  <p>Logging in...</p>
+                </>
+              ) : "Login"
+            }
+          </button>
         </form>
 
       </div>

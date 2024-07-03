@@ -3,10 +3,10 @@ import {
   Outlet,
   useNavigate,
 } from 'react-router-dom';
-import Header from '../layouts/Header';
 
 // State 
 import { useSelector } from 'react-redux';
+import DefaultLayout from '@/layouts/DefaultLayout';
 
 export default function Root() {
   const admin = useSelector((state: any) => state.admin);
@@ -14,21 +14,25 @@ export default function Root() {
 
   useEffect(() => {
     if (admin.isLoggedIn == false) {
-      navigate('/login');
+      navigate('/auth/login');
     } else if (admin.isLoggedIn == true) {
       navigate('/');
     }
   }, []);
 
-  return (
-    <>
-      {
-        admin.isLoggedIn &&
-        <Header />
-      }
-      <main className='w-full h-full min-h-screen bg-gray-100'>
+
+  if (admin.isLoggedIn == false) {
+    return (
+      <>
         <Outlet />
-      </main>
-    </>
-  )
+      </>
+    )
+  } else {
+    return (
+      <DefaultLayout>
+        <Outlet />
+      </DefaultLayout>
+    )
+  }
+
 }

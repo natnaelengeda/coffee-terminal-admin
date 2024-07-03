@@ -11,8 +11,9 @@ import Login from './pages/auth/login.tsx';
 import Signup from './pages/auth/signup.tsx';
 
 // Styles 
-import './index.css'
-import './styles/tailwind.css'
+import './index.css';
+import './styles/satoshi.css';
+import './styles/tailwind.css';
 import '@mantine/core/styles.css';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -21,6 +22,9 @@ import { Provider } from 'react-redux';
 import { persistor, store } from './store.ts';
 import { PersistGate } from 'redux-persist/integration/react';
 import { MantineProvider } from '@mantine/core';
+import Add from './pages/Add/Add.tsx';
+import Branches from './pages/Branches/Branches.tsx';
+import ViewAdmin from './pages/auth/View.tsx';
 
 const router = createBrowserRouter([
   {
@@ -32,12 +36,34 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/login',
-        element: <Login />,
+        path: "dashboard",
+        children: [
+          {
+            path: "add",
+            element: <Add />,
+          },
+          {
+            path: "branches",
+            element: <Branches />
+          }
+        ]
       },
       {
-        path: '/signup',
-        element: <Signup />
+        path: "auth",
+        children: [
+          {
+            path: 'login',
+            element: <Login />,
+          },
+          {
+            path: 'signup',
+            element: <Signup />
+          },
+          {
+            path: 'admins',
+            element: <ViewAdmin />
+          }
+        ]
       }
     ]
   }

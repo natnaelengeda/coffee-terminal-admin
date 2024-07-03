@@ -5,7 +5,7 @@ import ViewBranches from "./components/ViewBranches";
 
 export default function Branches() {
   return (
-    <div className="w-full h-full min-h-screen py-5 bg-gray-100">
+    <div className="w-full h-full min-h-screen py-5">
       <div className="mx-auto container h-full flex flex-col gap-5 md:gap-20 md:px-3 px-5">
         {/* Add Branch */}
         <div className="w-full h-auto flex flex-col items-start justsify-start">

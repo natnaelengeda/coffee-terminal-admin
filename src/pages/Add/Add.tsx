@@ -224,11 +224,11 @@ export default function Add() {
   }
 
   return (
-    <div className='w-full h-full min-h-[90vh] grid grid-cols-1 md:grid-cols-2 p-5 gap-1 md:gap-10  border'>
+    <div className='w-full h-full min-h-[90vh] grid grid-cols-1 md:grid-cols-2 p-5 gap-1 md:gap-10 border'>
 
       {/* Add Category */}
       <div className='w-full h-60 xl:px-20'>
-        <div className='w-full h-full rounded-xl bg-white border  border-gray-100 shadow-sm flex flex-col items-start justify-start py-5 boor'>
+        <div className='w-full h-full rounded-xl bg-white border  border-gray-300 shadow-sm flex flex-col items-start justify-start py-5 boor'>
 
           {/* Title */}
           <div className='w-full h-auto py-2'>
@@ -256,7 +256,7 @@ export default function Add() {
 
       {/* Add Item */}
       <div className='w-full h-[28rem] xl:px-20'>
-        <div className='w-full h-full flex flex-col rounded-xl py-5 bg-white  border border-gray-100 shadow-sm '>
+        <div className='w-full h-full flex flex-col rounded-xl py-5 bg-white  border border-gray-300 shadow-sm '>
 
           {/* Title */}
           <div className='w-full h-full py-2'>

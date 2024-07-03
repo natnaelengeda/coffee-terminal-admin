@@ -109,7 +109,7 @@ export default function BranchCard({ branch, fetchBranches }: { branch: any, fet
     <>
       <div
         // onClick={open}
-        className='w-full h-full min-h-24 border border-gray-300 rounded flex flex-row shadow-sm'>
+        className='w-full h-full min-h-24 border border-gray-200 rounded flex flex-row shadow-xl'>
         {/* Name & Price */}
         <div className='w-full flex flex-col items-start justify-start px-4 py-2'>
           <h1 className='text-lg font-bold'>{name}</h1>

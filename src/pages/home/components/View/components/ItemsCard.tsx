@@ -167,7 +167,7 @@ export default function ItemsCard(
     <>
       <div
         key={_id}
-        className='w-full h-24 border border-gray-300 rounded flex flex-row shadow-sm'>
+        className='w-full h-24 border border-gray rounded flex flex-row shadow-xl'>
         {/* Name & Price */}
         <div className='w-full flex flex-col px-4 py-2'>
           <h1 className='text-lg font-semibold'>{name}</h1>

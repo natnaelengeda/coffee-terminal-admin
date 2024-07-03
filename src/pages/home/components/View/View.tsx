@@ -3,12 +3,18 @@
 import logo from '@/assets/images/logo.png';
 import ItemsCard from './components/ItemsCard';
 
-export default function View({ data, fetchItems }: { data: any, fetchItems: any }) {
+// React Loading
+import ReactLoading from 'react-loading';
+
+export default function View({ data, loading, fetchItems }: { data: any, loading: boolean, fetchItems: any }) {
+
 
   return (
     <div className='mx-auto container h-full flex flex-col gap-5 md:px-3 py-5 px-5'>
       {
-        data && data.map((items: any) => (
+        !loading &&
+        data &&
+        data.map((items: any) => (
           <div
             key={items._id}
             className='w-full h-full flex flex-col gap-2'>
@@ -33,7 +39,20 @@ export default function View({ data, fetchItems }: { data: any, fetchItems: any 
         ))
       }
       {
-        data && data.length == 0 && (
+        loading &&
+        <div className="w-full h-full flex items-center justify-center py-20">
+          <ReactLoading
+            type='spokes'
+            color='black'
+            height={100}
+            width={100}
+          />
+        </div>
+      }
+      {
+        !loading &&
+        data &&
+        data.length == 0 && (
           <div className='w-full h-full flex flex-col items-start justify-start py-20'>
             <div className='w-full h-full flex flex-col gap-10 items-center'>
               <img

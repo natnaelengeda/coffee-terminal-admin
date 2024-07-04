@@ -6,30 +6,30 @@ import ItemsCard from './components/ItemsCard';
 // React Loading
 import ReactLoading from 'react-loading';
 
-export default function View({ data, loading, fetchItems }: { data: any, loading: boolean, fetchItems: any }) {
-
-
+export default function View({ data, branches, loading, fetchItems }: { data: any, branches: any, loading: boolean, fetchItems: any }) {
   return (
     <div className='mx-auto container h-full flex flex-col gap-5 md:px-3 py-5 px-5'>
       {
         !loading &&
         data &&
-        data.map((items: any) => (
+        data.map((items: any, index: number) => (
           <div
-            key={items._id}
+            key={index}
             className='w-full h-full flex flex-col gap-2'>
             <div>
               <h1 className='text-xl font-semibold'>{items.title}</h1>
             </div>
             <div className='w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-10 py-2'>
               {
-                items.foodList.map((food: any) => (
+                items.foodList.map((food: any, index: number) => (
                   <ItemsCard
-                    key={food[0]._id}
-                    _id={food[0]._id}
-                    name={food[0].name}
-                    price={food[0].price}
-                    image={food[0].image}
+                    key={index}
+                    _id={food._id}
+                    name={food.name}
+                    price={food.price}
+                    image={food.image}
+                    branches={food.branches || []}
+                    mainBranches={branches}
                     fetchItems={fetchItems}
                   />
                 ))

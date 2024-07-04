@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 // Mantine
 import { useDisclosure } from '@mantine/hooks';
-import { Modal, TextInput } from '@mantine/core';
+import { Modal, TextInput, Checkbox } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 // Axios
@@ -19,12 +19,16 @@ export default function ItemsCard(
     name,
     price,
     image,
+    branches,
+    mainBranches,
     fetchItems,
   }: {
     _id: string,
     name: string,
     price: number,
     image: string,
+    branches: any,
+    mainBranches: any,
     fetchItems: any
   }) {
   const [opened, { open, close }] = useDisclosure(false);
@@ -35,6 +39,10 @@ export default function ItemsCard(
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateImageLoading, setUpdateImageLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const [branchesLoading, setBranchesLoading] = useState(false);
+
+  // Branches
+  const [selectedBranches, setSelectedBranches] = useState([]);
 
   const form = useForm({
     initialValues: {
@@ -163,6 +171,39 @@ export default function ItemsCard(
       })
   }
 
+  // Step 3: Implement the onChange handler
+  const handleCheckboxChange = (branchName: any) => {
+    setSelectedBranches((prevSelectedBranches: any) => {
+      if (prevSelectedBranches.includes(branchName)) {
+        // If the branch is already selected, remove it from the array
+        return prevSelectedBranches.filter((name: any) => name !== branchName);
+      } else {
+        // If the branch is not selected, add it to the array
+        return [...prevSelectedBranches, branchName];
+      }
+    });
+  };
+
+  const updateBranch = () => {
+    setBranchesLoading(true);
+    axios.put('/food/branches', { id, branches: selectedBranches })
+      .then((response) => {
+        const status = response.status;
+        if (status == 200) {
+          setBranchesLoading(false);
+          fetchItems();
+          toast.success('Branches Updated', {
+            position: "top-right",
+            autoClose: 2000,
+          });
+          close();
+        }
+      }).catch((error) => {
+        console.error(error);
+        setBranchesLoading(false);
+      })
+  }
+
   return (
     <>
       <div
@@ -193,7 +234,7 @@ export default function ItemsCard(
         opened={opened}
         onClose={close}
         title="Edit">
-        <div className='w-full h-full flex flex-col gap-5'>
+        <div className='w-full h-full flex flex-col gap-3'>
           <form
             onSubmit={form.onSubmit((values) => updateItem(values))}
             className='w-full h-full flex flex-col gap-3'>
@@ -229,8 +270,7 @@ export default function ItemsCard(
               }
             </button>
           </form>
-
-          <div className='w-full h-full flex flex-row items-center gap-5'>
+          <div className='w-full h-full flex flex-row items-center gap-3'>
 
             {/* Update Image */}
             <div className='w-full h-full'>
@@ -278,6 +318,45 @@ export default function ItemsCard(
               }
             </button>
           </div>
+
+          <div className='w-full h-40 boor rounded flex flex-col items-start justify-start gap-4 py-2 px-4'>
+            <div className='text-sm flex flex-col items-start justify-around gap-1'>
+              <h1 className='text-lg font-bold pb-2'>Branch:</h1>
+              {
+                mainBranches.map((branch: any, index: number) => {
+                  return (
+                    <Checkbox
+                      color="red"
+                      size="xs"
+                      key={index}
+                      defaultChecked={branches.includes(branch.name)}
+                      onChange={() => handleCheckboxChange(branch.name)} // Step 2: Update Checkbox to accept onChange
+                      label={branch.name}
+                    />
+                  );
+                })
+              }
+            </div>
+
+            <button
+              disabled={branchesLoading}
+              onClick={updateBranch}
+              className={`px-4 py-1 ${branchesLoading ? "bg-gray-300" : "bg-slate-600"}  text-white rounded flex flex-row items-center justify-center gap-2`}>
+              {
+                branchesLoading ? (
+                  <>
+                    <ReactLoading
+                      type='spin'
+                      color='white'
+                      height={20}
+                      width={20} />
+                    <p>Updating...</p>
+                  </>
+                ) : "Update"
+              }
+            </button>
+          </div>
+
           {/* Cancel Button */}
           <div className='w-full h-full flex flex-row items-center'>
             <button

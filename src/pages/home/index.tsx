@@ -17,7 +17,6 @@ import {
 
 // Icons
 import { CiSettings } from "react-icons/ci";
-import { IoQrCode } from "react-icons/io5";
 
 export default function Home() {
   const [data, setData] = useState([]);
@@ -114,40 +113,6 @@ export default function Home() {
           <hr className="w-40 border" />
         </div>
 
-        {/* QR COde */}
-        <div className="w-full flex flex-col items-start justify-start gap-2">
-          <div className="flex items-end gap-2">
-            <h1 className="text-2xl font-bold">QR Code</h1>
-            <Menu
-              position="right-start"
-              shadow="md"
-              width={200}>
-              <Menu.Target>
-                <button>
-                  <IoQrCode className="text-2xl" />
-                </button>
-              </Menu.Target>
-
-              <Menu.Dropdown>
-                <Menu.Label>Branches</Menu.Label>
-                <Menu.Item
-                  onClick={fetchItems}>
-                  All
-                </Menu.Item>
-                {
-                  branches.map((branch: any, index: number) => (
-                    <Menu.Item
-                      key={index}
-                      onClick={() => fetchItemsBranch(branch.name)}>
-                      {branch.name}
-                    </Menu.Item>
-                  ))
-                }
-              </Menu.Dropdown>
-            </Menu>
-          </div>
-          <hr className="w-40 border" />
-        </div>
       </div>
 
       <View

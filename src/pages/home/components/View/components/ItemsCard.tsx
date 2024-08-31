@@ -319,7 +319,7 @@ export default function ItemsCard(
             </button>
           </div>
 
-          <div className='w-full h-40 boor rounded flex flex-col items-start justify-start gap-4 py-2 px-4'>
+          <div className='w-full h-auto boor rounded flex flex-col items-start justify-start gap-4 py-2 px-4'>
             <div className='text-sm flex flex-col items-start justify-around gap-1'>
               <h1 className='text-lg font-bold pb-2'>Branch:</h1>
               {

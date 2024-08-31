@@ -16,8 +16,16 @@ import axiosFile from '@/http/axiosFile';
 // Toast
 import { Bounce, toast } from 'react-toastify';
 
+// React Loading 
+import ReactLoading from "react-loading";
+
 export default function Add() {
   const [category, setCategory] = useState([]);
+
+  // Loading
+  const [categoryLoading, setCategoryLoading] = useState(false);
+  const [itemLoading, setItemLoading] = useState(false);
+
 
   useEffect(() => {
     fetchCategory();
@@ -126,6 +134,7 @@ export default function Add() {
   })
 
   const addCategory = async (values: any) => {
+    setCategoryLoading(true);
     await axios.post('/food/createCatagory', values)
       .then((response) => {
         const status = response.status;
@@ -171,10 +180,13 @@ export default function Add() {
             transition: Bounce,
           });
         }
+      }).finally(() => {
+        setCategoryLoading(false);
       })
   }
 
   const addItem = async (values: any) => {
+    setItemLoading(true);
     await axiosFile.post('/food', values)
       .then((response) => {
         const status = response.status;
@@ -220,6 +232,8 @@ export default function Add() {
             transition: Bounce,
           });
         }
+      }).finally(() => {
+        setItemLoading(false);
       });
   }
 
@@ -245,10 +259,24 @@ export default function Add() {
               {...form.getInputProps('category')}
             />
             <Button
+              disabled={categoryLoading}
               type='submit'
               style={{
-                width: '100%'
-              }}>Add Category</Button>
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px'
+
+
+              }}>{
+                categoryLoading ? (<>
+                  <ReactLoading type={"spin"} color={"black"} height={20} width={20} />
+                  <p className='pl-3'>Adding...</p>
+                </>) :
+                  'Add Category'
+              }</Button>
           </form>
 
         </div>
@@ -290,10 +318,24 @@ export default function Add() {
             />
 
             <Button
+              disabled={itemLoading}
               type='submit'
               style={{
-                width: '100%'
-              }}>Add Category</Button>
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px'
+
+
+              }}>{
+                itemLoading ? (<>
+                  <ReactLoading type={"spin"} color={"black"} height={20} width={20} />
+                  <p className='pl-3'>Adding...</p>
+                </>) :
+                  'Add Item'
+              }</Button>
           </form>
 
         </div>
